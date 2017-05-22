@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html ng-app="toDoList" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Your To Do App!</title>
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="bower_components/toastr/toastr.css" />
+  <!-- endbower -->
+
+  <!-- inject:css -->
+  <link rel="stylesheet" href="/app/styles/style.css">
+  <!-- endinject -->
+</head>
+
+
+<body ng-controller="ToDoController as vm">
+  <!-- Main Header -->
+  <div class="container">
+    <div class="jumbotron">
+      <h1>The Very Simple To Do App</h1>
+    </div>
+    <div class="col-xs-12 col-md-4">
+      <div class="form-group">
+        <form name="forminputs" id="formInputButton">
+          <!-- Text input-->
+          <h2 id="labNewToDo">New To Do</h2>
+          <br>
+          <div class="input">
+            <input type="text" id="allText" placeholder="Enter task" ng-model="vm.toDoObj.text" required/>
+          </div>
+
+          <!-- Dropdown for Priorities -->
+          <div class="userInput">
+            <h2 id="labNewToDo">To Do Priority</h2>
+            <br>
+            <select id="priorityInputs" name="priorityOptions" ng-model="vm.toDoObj.priority" required>
+          <option class="alert alert-danger" value="1">High</option>
+          <option class="alert alert-warning" value="2">Medium</option>
+          <option class="alert alert-success" value="3">Low</option>
+        </select>
+          </div>
+
+          <!-- Add Button -->
+          <div class="btn-group-vertical">
+            <button id="createToDo" class="btn btn-default" ng-click="vm.addNew(vm.toDoObj)" ng-disabled="forminputs.$invalid">Add Task</button>
+          </div>
+        </form>
+
+        <!--Update, Edit, Delete Buttons
+        <div class="btn-group-vertical">
+          <button id="retrieveToDo" class="btn btn-default" name="retToDo" ng-click="vm.getTask()">Update Tasks</button>
+        <div class="userInput">
+        <button id="editToDo" name="editToDo" ng-click="vm.taskData()" ng-disabled="forminputs.$invalid">Edit Task</button>
+      </div>
+      <div class="userInput">
+        <button id="deleteToDo" name="delToDo" ng-click="vm.taskData()" ng-disabled="forminputs.$invalid">Dekete Task</button>
+      </div>*/
+        </div>-->
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-md-8">
+      <!-- Sort Option Buttons -->
+      <div class="btn-group" role="group">
+        <!-- Button -->
+        <button id="highPriority" class="btn btn-danger" name="highPriority" ng-click="sortfield = 'priority'">Sort by Highest Priority</button>
+        <button id="lowPriority" class="btn btn-warning" name="lowPriority" ng-click="sortfield = '-priority'">Sort by Lowest Priority</button>
+        <button id="alphabetSort" class="btn btn-primary" name="alphabetSort" ng-click="sortfield = 'text'">Sort by Alphabetical Order</button>
+      </div>
+
+      <!-- Table for To Do's -->
+      <div>
+        <ul>
+          <li ng-bind="::vm.toDoObj.text" ng-repeat="text in vm.toDoArr | orderBy:sortfield" ng-class="::{'high':vm.toDoObj.priority == 1, 'medium':vm.toDoObj.priority == 2, 'low':vm.toDoObj.priority == 3}">
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- bower:js -->
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/toastr/toastr.js"></script>
+  <!-- endbower -->
+
+  <!-- inject:js -->
+  <script src="/app/app.js"></script>
+  <script src="/app/vstda.controller.js"></script>
+  <script src="/app/vstda.factory.js"></script>
+  <!-- endinject -->
+</body>
+
+</html>
